@@ -41,6 +41,10 @@ namespace MyEFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("engine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
