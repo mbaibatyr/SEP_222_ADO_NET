@@ -1,4 +1,5 @@
-﻿using MyEFCore.DbContextEF;
+﻿using Microsoft.EntityFrameworkCore;
+using MyEFCore.DbContextEF;
 using MyEFCore.Model;
 
 namespace MyEFCore
@@ -8,15 +9,28 @@ namespace MyEFCore
         static void Main(string[] args)
         {
             Call call = new Call();
-            call.CarUpd();
+            call.CarUpd(1, new Car()
+            {
+                year = 2022
+            });
+
+            //call.CarUpd2(new Car()
+            //{
+            //    //id = 1,
+            //    year = 2023,
+            //    color = "black",
+            //    company = "toyota",
+            //    model = "camry",
+            //    distance = "200000"
+            //});
+
             //call.CarIns(new Car()
             //{
             //    company = "toyota",
             //    color = "red",
             //    distance = "100000",
             //    model = "carina",
-            //    year = 2020,
-            //    engine = "2000"
+            //    year = 2020
             //});
 
             foreach (var item in call.CarSelect())
@@ -37,7 +51,7 @@ namespace MyEFCore
 
         public string CarIns(Car model)
         {
-            context.Car.Add(model);
+            context.Car.AddRange(model);
             context.SaveChanges();
             return "ok";
         }
@@ -47,16 +61,18 @@ namespace MyEFCore
             return context.Car.ToList();
         }
 
-        public string CarUpd()
+        public string CarUpd(int id, Car model)
         {
-            var car = context.Car.Where(z=>z.model == "camry").FirstOrDefault();
-            if (car != null)
-            {
-                car.model = "prado";
-                context.Car.Update(car);
-                context.SaveChanges();
-            }
+            var car = context.Car.Where(z => z.id == id).FirstOrDefault();
+            if (car == null)
+                return "Car not found";
+
+            car.year = model.year;
+            context.Car.Update(car);
+            context.SaveChanges();
             return "ok";
         }
+
+       
     }
 }
