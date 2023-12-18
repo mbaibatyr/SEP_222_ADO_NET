@@ -10,7 +10,7 @@ namespace MyEFCore
         {
             Call_2 call = new Call_2();
             //call.InsParentChild();
-            call.SelParentChild_3();
+            call.SelParentChild_4();
 
             //Call call = new Call();
             //call.CarUpd(1, new Car()
@@ -148,6 +148,23 @@ namespace MyEFCore
             foreach (var item in parent.Child)
             {
                 Console.WriteLine($"{parent.name} - {item.name}");
+            }
+        }
+
+        public void SelParentChild_4()
+        {
+            var lst = from p in context.Parent
+                      join c in context.Child on p.id equals c.ParentId
+                      where p.id == 1
+                      select new
+                      {
+                          f1 = p.name,
+                          f2 = c.name
+                      };
+
+            foreach (var item in lst)
+            {
+                Console.WriteLine($"{item.f1} - {item.f2}");
             }
         }
     }
