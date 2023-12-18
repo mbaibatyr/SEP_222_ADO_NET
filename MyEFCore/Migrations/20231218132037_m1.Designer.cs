@@ -12,8 +12,8 @@ using MyEFCore.DbContextEF;
 namespace MyEFCore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20231213153813_m7")]
-    partial class m7
+    [Migration("20231218132037_m1")]
+    partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

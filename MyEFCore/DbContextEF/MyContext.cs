@@ -26,7 +26,8 @@ namespace MyEFCore.DbContextEF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=F:\\TEMP\\db_test.mdf;Integrated Security=True;Connect Timeout=30");
+            //optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.UseSqlServer("Server=206-P;Database=testDB;Trusted_Connection=True;");
         }
     }
 }

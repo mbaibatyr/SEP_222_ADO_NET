@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace MyEFCore.Model
 {
-
     public class Country
     {
         public int Id { get; set; }
@@ -54,7 +53,6 @@ namespace MyEFCore.Model
     {
         public int id { get; set; }
         public string name { get; set; }
-
         [Column(TypeName = "datetime")]
         public DateTime? DateBirth { get; set; }
         public virtual List<Teacher> Teacher { get; set; }
