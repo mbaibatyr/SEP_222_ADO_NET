@@ -19,9 +19,10 @@ namespace MyEFCore.DbContextEF
 
         public DbSet<Country> Country { get; set; }
         public DbSet<Capital> Capital { get; set; }
+        public DbSet<ParentChild> ParentChild { get; set; }
 
-        
-        
+
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

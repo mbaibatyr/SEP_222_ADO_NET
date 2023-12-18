@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -40,6 +41,13 @@ namespace MyEFCore.Model
         public virtual Parent Parent { get; set; }
         [ForeignKey("ParentId")]
         public int ParentId { get; set; }
+    }
+
+    [Keyless]
+    public class ParentChild
+    {
+        public string p_name { get; set; }
+        public string c_name { get; set; }
     }
 
     public class Teacher

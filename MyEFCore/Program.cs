@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using MyEFCore.DbContextEF;
 using MyEFCore.Model;
 
@@ -10,7 +11,8 @@ namespace MyEFCore
         {
             Call_2 call = new Call_2();
             //call.InsParentChild();
-            call.SelParentChild_4();
+            //call.SelParentChild_4();
+            call.SelParentChild_5();
 
             //Call call = new Call();
             //call.CarUpd(1, new Car()
@@ -153,18 +155,30 @@ namespace MyEFCore
 
         public void SelParentChild_4()
         {
-            var lst = from p in context.Parent
-                      join c in context.Child on p.id equals c.ParentId
-                      where p.id == 1
-                      select new
-                      {
-                          f1 = p.name,
-                          f2 = c.name
-                      };
+            //var lst = from p in context.Parent
+            //          join c in context.Child on p.id equals c.ParentId
+            //          where p.id == 1
+            //          select new
+            //          {
+            //              f1 = p.name,
+            //              f2 = c.name
+            //          };
 
-            foreach (var item in lst)
+            //foreach (var item in lst)
+            //{
+            //    Console.WriteLine($"{item.f1} - {item.f2}");
+            //}
+
+            //var res = context.ParentChild.FromSqlRaw("SELECT p.name p_name, c.name c_name FROM [testDB].[dbo].[Parent] p join [testDB].[dbo].Child c on p.id = c.ParentId");
+        }
+
+        public void SelParentChild_5()
+        {
+            SqlParameter id = new SqlParameter("id", DBNull.Value);
+            var result = context.ParentChild.FromSqlRaw("exec pParentChildren @id", id);
+            foreach (var item in result)
             {
-                Console.WriteLine($"{item.f1} - {item.f2}");
+                Console.WriteLine($"{item.p_name} - {item.c_name}");
             }
         }
     }
