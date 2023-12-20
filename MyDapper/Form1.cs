@@ -57,8 +57,8 @@ namespace MyDapper
             {
                 Users2 user = new Users2()
                 {
-                    id = 0,
-                    iin = "123",
+                    id = 5,
+                    iin = "321",
                     last_name = "test666",
                     category_id = "1"
                 };
@@ -70,5 +70,29 @@ namespace MyDapper
                 MessageBox.Show("new id = " + p.Get<int>("id_out").ToString());
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (var db = new SqlConnection(ConfigurationManager.AppSettings["db"]))
+            {
+                DynamicParameters p = new DynamicParameters();
+                p.Add("id", tbFind.Text);
+                p.Add("id_out", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                var result = db.ExecuteScalar<string>("pUsers;3", p, commandType: CommandType.StoredProcedure);
+
+                gvUsers.DataSource = db.Query<Users>("[dbo].[pUsers]", new { id = tbFind.Text == "" ? null : tbFind.Text }, commandType: CommandType.StoredProcedure);
+
+                MessageBox.Show(result);
+                MessageBox.Show("new id = " + p.Get<int>("id_out").ToString());
+
+            }
+        }
     }
 }
+
+
+/*
+ 
+ 
+ 
+ */
