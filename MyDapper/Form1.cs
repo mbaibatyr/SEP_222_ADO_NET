@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 
 namespace MyDapper
@@ -73,6 +74,7 @@ namespace MyDapper
 
         private void button4_Click(object sender, EventArgs e)
         {
+           
             using (var db = new SqlConnection(ConfigurationManager.AppSettings["db"]))
             {
                 DynamicParameters p = new DynamicParameters();
@@ -85,6 +87,17 @@ namespace MyDapper
                 MessageBox.Show(result);
                 MessageBox.Show("new id = " + p.Get<int>("id_out").ToString());
 
+            }
+        }
+
+        private void gvUsers_SelectionChanged(object sender, EventArgs e)
+        {
+            if (gvUsers.SelectedCells.Count > 0)
+            {                
+                //var selectedRow = gvUsers.Rows[gvUsers.SelectedCells[0].RowIndex];
+                
+                //Text = selectedRow.Cells[0].Value.ToString();
+                Text = gvUsers.SelectedRows[0].Cells[0].Value.ToString();
             }
         }
     }
